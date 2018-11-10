@@ -1,5 +1,14 @@
-﻿<?php include 'inc/header.php';?>
-<?php include 'inc/sidebar.php';?>
+﻿<?php
+    require_once 'inc/header.php';
+    require_once 'inc/sidebar.php';
+    require_once '../classes/Category.php';
+?>
+
+<?php
+    $category = new Category();
+    $all_categories = $category->index();
+?>
+
         <div class="grid_10">
             <div class="box round first grid">
                 <h2>Category List</h2>
@@ -13,46 +22,33 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX">
-							<td>01</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>02</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>03</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>04</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-							<tr class="odd gradeX">
-							<td>05</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>06</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>07</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>08</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
+<!--                    --><?php //if(isset($all_categories)): ?>
+
+                        <?php foreach ($all_categories as $single_category):?>
+                            <tr class="odd gradeX">
+                                <td><?php echo $single_category['id']; ?></td>
+                                <td><?php echo $single_category['name']; ?></td>
+                                <td>
+                                    <a href="category_edit.php?category_id=<?php echo $single_category['id']; ?>">Edit</a>
+                                    ||
+                                    <a
+                                            onclick="return confirm('Are you sure you want to delete this?')"
+                                            href="category_edit.php?category_id=<?php echo $single_category['id']; ?>">Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+
+<!--                    --><?php //else: ?>
+<!--                        No Categories-->
+<!--                    --><?php //endif; ?>
+<!---->
+<!--						<tr class="even gradeC">-->
+<!--							<td>02</td>-->
+<!--							<td>Explorer </td>-->
+<!--							<td><a href="">Edit</a> || <a href="">Delete</a></td>-->
+<!--						</tr>-->
+
 					</tbody>
 				</table>
                </div>
