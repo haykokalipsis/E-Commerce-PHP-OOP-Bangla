@@ -19,20 +19,20 @@
                 </li>
 				<li><a class="menuitem">Slider Option</a>
                     <ul class="submenu">
-                        <li><a href="slideradd.php">Add Slider</a> </li>
-                        <li><a href="sliderlist.php">Slider List</a> </li>
+                        <li><a href="slider_add.php">Add Slider</a> </li>
+                        <li><a href="sliderl_ist.php">Slider List</a> </li>
                     </ul>
                 </li>
                 <li><a class="menuitem">Category Option</a>
                     <ul class="submenu">
-                        <li><a href="catadd.php">Add Category</a> </li>
-                        <li><a href="catlist.php">Category List</a> </li>
+                        <li><a href="category_add.php">Add Category</a> </li>
+                        <li><a href="category_list.php">Category List</a> </li>
                     </ul>
                 </li>
                 <li><a class="menuitem">Product Option</a>
                     <ul class="submenu">
-                        <li><a href="productadd.php">Add Product</a> </li>
-                        <li><a href="productlist.php">Product List</a> </li>
+                        <li><a href="product_add.php">Add Product</a> </li>
+                        <li><a href="product_list.php">Product List</a> </li>
                     </ul>
                 </li>
             </ul>
