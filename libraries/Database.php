@@ -1,75 +1,33 @@
 <?php
 
-Class Database
+require_once '../config/config.php';
+
+class Database
 {
-    public $host   = DB_HOST;
-    public $user   = DB_USER;
-    public $pass   = DB_PASS;
-    public $dbname = DB_NAME;
-
     public $link;
-    public $error;
+    private $error;
+    private $stmt;
 
+    // Connect to link
     public function __construct()
     {
-        $this->connectDB();
-    }
+        // Set DSN
+        $dsn ='mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
 
-    private function connectDB()
-    {
-        $this->link = new mysqli($this->host, $this->user, $this->pass,
-            $this->dbname);
-        if(!$this->link){
-            $this->error ="Connection fail".$this->link->connect_error;
-            return false;
-        }
-    }
+        // Set options
+        $options = array(
+            PDO::ATTR_PERSISTENT => TRUE,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => FALSE,
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+        );
 
-// Select or Read data
-    public function select($query)
-    {
-        $result = $this->link->query($query) or
-        die($this->link->error.__LINE__);
-        if($result->num_rows > 0){
-            return $result;
-        } else {
-            return false;
-        }
-    }
-
-// Insert data
-    public function insert($query)
-    {
-        $insert_row = $this->link->query($query) or
-        die($this->link->error.__LINE__);
-        if($insert_row){
-            return $insert_row;
-        } else {
-            return false;
-        }
-    }
-
-// Update data
-    public function update($query)
-    {
-        $update_row = $this->link->query($query) or
-        die($this->link->error.__LINE__);
-        if($update_row){
-            return $update_row;
-        } else {
-            return false;
-        }
-    }
-
-// Delete data
-    public function delete($query)
-    {
-        $delete_row = $this->link->query($query) or
-        die($this->link->error.__LINE__);
-        if($delete_row){
-            return $delete_row;
-        } else {
-            return false;
+        // Create new PDO
+        try{
+            $this->link = new PDO($dsn, DB_USER, DB_PASS, $options);
+        } catch (PDOException $e){
+            $this->error = $e->getMessage();
         }
     }
 

@@ -4,12 +4,12 @@
  */
 class Format
 {
-    public function formatDate($date)
+    public static function formatDate($date)
     {
         return date('F j, Y, g:i a', strtotime($date));
     }
 
-    public function textShorten($text, $limit = 400)
+    public static function textShorten($text, $limit = 400)
     {
         $text = $text. " ";
         $text = substr($text, 0, $limit);
@@ -18,7 +18,7 @@ class Format
         return $text;
     }
 
-    public function validation($data)
+    public static function validation($data)
     {
         $data = trim($data);
         $data = stripcslashes($data);
@@ -26,7 +26,7 @@ class Format
         return $data;
     }
 
-    public function title()
+    public static function title()
     {
         $path = $_SERVER['SCRIPT_FILENAME'];
         $title = basename($path, '.php');
