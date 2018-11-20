@@ -6,19 +6,21 @@
 
 <?php
     // redirect to category lists if url does'nt contain category_id
-    if( ! isset($_GET['category_id']) || $_GET['category_id'] === NULL) {
+    if( ! isset($_GET['category_id']) || $_GET['category_id'] === NULL)
         echo "<script>window.location = 'category_list.php';</script>";
-    } else {
+    else
         $category_id = $_GET['category_id'];
-    }
+        $category_id = preg_replace('~[^-a-zA-Z0-9_]~', '', $_GET['category_id']);
+
 
     $category = new Category();
-    $category_by_id = $category->get($category_id);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $category_name = $_POST['category_name'];
         $updatedCategory = $category->update($category_id, $category_name);
     }
+
+    $category_by_id = $category->get($category_id);
 ?>
 
     <div class="grid_10">

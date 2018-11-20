@@ -1,18 +1,26 @@
 ﻿<?php
-    require_once 'inc/header.php';
-    require_once 'inc/sidebar.php';
-    require_once '../classes/Category.php';
+require_once '../classes/Category.php';
+require_once 'inc/header.php';
+require_once 'inc/sidebar.php';
 ?>
 
 <?php
     $category = new Category();
+    if(isset($_GET['action']) && $_GET['action'] == 'delete') {
+        $category_id = $_GET['category_id'];
+        $category_id = preg_replace('~[^-a-zA-Z0-9_]~', '', $_GET['category_id']);
+        $result = $category->delete($category_id);
+//        echo $result;
+    }
+
     $all_categories = $category->index();
 ?>
 
         <div class="grid_10">
             <div class="box round first grid">
                 <h2>Category List</h2>
-                <div class="block">        
+                <div class="block">   
+                    <?php echo $result ?? null; ?>
                     <table class="data display datatable" id="example">
 					<thead>
 						<tr>
@@ -33,7 +41,8 @@
                                     ||
                                     <a
                                             onclick="return confirm('Are you sure you want to delete this?')"
-                                            href="category_edit.php?category_id=<?php echo $single_category['id']; ?>">Delete
+                                            href="?action=delete&category_id=<?php echo $single_category['id']; ?>">Delete
+<!--                                            href="?del-cat=--><?php //echo $single_category['id']; ?><!--">Delete-->
                                     </a>
                                 </td>
                             </tr>

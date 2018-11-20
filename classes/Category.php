@@ -72,6 +72,24 @@ class Category
         }
 
         return $msg;
-    } 
+    }
+
+    public function delete($id)
+    {
+        $category_id = Format::validation($id);
+
+        $sql = "DELETE FROM `categories` WHERE `id` = :id";
+
+        $stmt = $this->pdo->link->prepare($sql);
+        $stmt->bindValue(':id', $category_id, PDO::PARAM_INT);
+        $stmt->execute();
+//
+        if($stmt->rowCount() > 0)
+            $msg = "<span class='success'>Category deleted successfully.</span>";
+        else
+            $msg = "<span class='error'>Category not deleted.</span>";
+
+        return $msg;
+    }
 
 }
